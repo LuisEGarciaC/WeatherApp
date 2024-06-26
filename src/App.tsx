@@ -1,5 +1,6 @@
 import "./App.css";
-import { WeatherRoutes } from "./WeatherApp/Routes/WeatherRoutes";
+import { WeatherRoutes } from "./Routes/WeatherRoutes";
+
 import { NavBar } from "./WeatherApp/components/Layout/NavBar";
 
 function App() {

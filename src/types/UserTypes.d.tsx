@@ -6,8 +6,11 @@ export interface UserState {
 	address: Address;
 	phone: string;
 	website: string;
-  company: Company;
-  userlogin: UserLogin
+	company: Company;
+	isLoging: boolean;
+	usarStatus: "authenticated" | "not_authenticated" | "checking";
+	errorMessage: string | null;
+	units: string;
 }
 
 export interface Address {
@@ -29,10 +32,3 @@ export interface Company {
 	bs: string;
 }
 
-
-export interface UserLogin {
-	isLoging: boolean;
-	usarStatus: "authenticated" | "not_authenticated" | "checking";
-	errorMessage: string | null;
-	units: string
-}

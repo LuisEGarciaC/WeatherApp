@@ -6,6 +6,10 @@ const initialState: UserState = {
 	name: "",
 	username: "",
 	email: "",
+	isLoging: false,
+	usarStatus: "not_authenticated",
+	errorMessage: null,
+	units: "",
 	address: {
 		street: "",
 		suite: "",
@@ -23,12 +27,6 @@ const initialState: UserState = {
 		catchPhrase: "",
 		bs: "",
 	},
-	userlogin: {
-		isLoging: false,
-		usarStatus: "not_authenticated",
-		errorMessage: null,
-		units: "",
-	},
 };
 
 export const UserSlice = createSlice({
@@ -37,14 +35,17 @@ export const UserSlice = createSlice({
 	reducers: {
 		setUserLogin: (state, action: PayloadAction<UserState>) => {
 			state = action.payload;
-			state.userlogin.isLoging = true;
-			state.userlogin.usarStatus = "authenticated";
-			state.userlogin.errorMessage = null;
-			state.address.city = "venezuela";
-			state.userlogin.units = "metric";
+			state.units = "metric";
+			state.usarStatus = "authenticated";
+			state.isLoging = false;
+			state.errorMessage = null;
+			return state;
+		},
+		setErrorMessage: (state, action: PayloadAction<string>) => {
+			state.errorMessage = action.payload;
 		},
 	},
 });
 
-export const { setUserLogin } = UserSlice.actions;
+export const { setUserLogin, setErrorMessage } = UserSlice.actions;
 export default UserSlice.reducer;

@@ -7,7 +7,7 @@ export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
 
 const rootReducer = combineReducers({
-	user: UserSlice.reducer,
+	userInformation: UserSlice.reducer,
 });
 
 const store = configureStore({

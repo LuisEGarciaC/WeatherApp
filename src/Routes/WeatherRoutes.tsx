@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
-import { Home} from "../components/pages/home/Home";
-import { UserLogin } from "../components/pages/Login/UserLogin";
-import { AppRegister } from "../components/pages/register/AppRegister";
-import { UserPerfil } from "../components/pages/perfil/UserPerfil";
-import ErrorPage from "../components/pages/Error/ErrorPage";
+import { Home } from "../WeatherApp/components/pages/home/Home";
+import { UserLogin } from "../Auth/Login/UserLogin";
+import { AppRegister } from "../Auth/register/AppRegister";
+import { UserPerfil } from "../Auth/perfil/UserPerfil";
+import ErrorPage from "../WeatherApp/components/pages/Error/ErrorPage";
 export const WeatherRoutes = () => {
 	return (
 		<Routes>

@@ -4,11 +4,15 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { InicialAuthentication } from "../../Redux/User/ThunkUser";
 
 export const UserLogin = () => {
 	const navigate = useNavigate();
 	const [userName, setUserName] = useState("Antonette");
 	const [userEmail, setEmail] = useState("Shanna@melissa.tv");
+
+	const dispatch = useDispatch();
 
 	const hansdlUserNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setUserName(event.target.value);
@@ -20,14 +24,10 @@ export const UserLogin = () => {
 
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
+		const datosUser = { userName, userEmail };
 
-		if (userName !== "" && userEmail !== "") {
-			const datosUser = { userName, userEmail };
-
-			console.log(datosUser)
-
-			navigate("/perfil");
-		}
+		dispatch(InicialAuthentication(datosUser));
+		navigate("/");
 	};
 
 	return (
@@ -48,11 +48,7 @@ export const UserLogin = () => {
 					flexDirection={"column"}
 					display={"flex"}
 				>
-					<Grid
-						item
-						xs={12}
-						sx={{ display: "flex", justifyContent: "center" }}
-					>
+					<Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
 						<Typography variant="h5"> Iniciciar Sesion</Typography>
 					</Grid>
 
@@ -107,11 +103,7 @@ export const UserLogin = () => {
 							olvide mi contraseña
 						</Link>
 					</Grid>
-					<Grid
-						item
-						xs={12}
-						sx={{ display: "flex", justifyContent: "end" }}
-					>
+					<Grid item xs={12} sx={{ display: "flex", justifyContent: "end" }}>
 						<Link to="/register" component={RouterLink}>
 							Registrar
 						</Link>

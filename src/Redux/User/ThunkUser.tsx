@@ -1,8 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { setUserLogin } from "./Userslice";
+import { setErrorMessage, setUserLogin } from "./Userslice";
 import axios from "axios";
-
-
 
 export const InicialAuthentication: any = createAsyncThunk(
 	/*
@@ -11,28 +9,34 @@ export const InicialAuthentication: any = createAsyncThunk(
 		agrego la informacion de email y username que viene se UserInformation
 		https://jsonplaceholder.typicode.com/users?email=Shanna%40melissa.tv&username=Antonette
 	*/
-	"userAuth/checkingAuthentication",
+	"userAuth/checkingAuth",
 	async (
 		{ userName, userEmail }: { userName: string; userEmail: string },
 		{ dispatch, rejectWithValue }
 	) => {
 		try {
-			const response = await axios.get(
-				`https://jsonplaceholder.typicode.com/users?email=${userEmail}&"username=${userName}"`
-			);
-
-			/*
-			recibo la respuesta en una Array de datos en la posicion 0 esta los datos del usuario
-			*/
-			const respuesta = response.data[0];
-			/*
-				uso el dispash en el slice de login() le agrego la información traida de la API
-				*/
-			dispatch(setUserLogin(respuesta));
+			await axios
+				.get(
+					`https://jsonplaceholder.typicode.com/users?email=${userEmail}&"username=${userName}"`
+				)
+				.then((res) => {
+					/*
+					recibo la respuesta en una Array de datos en la posicion 0 esta los datos del usuario
+					*/
+					const respuesta = res.data[0];
+					/*
+						uso el dispash en el slice de login() le agrego la información traida de la API
+						*/
+					dispatch(setUserLogin(respuesta));
+				})
+				.catch((err) => {
+					console.log(err.message);
+					// uso el dispatch para enviar errores de la API
+					dispatch(setErrorMessage("Problemas con la pagina de la API"));
+					// err
+				});
 		} catch (error) {
 			throw rejectWithValue("Error no se encuentra usuario");
 		}
 	}
 );
-
-
