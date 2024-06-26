@@ -6,8 +6,13 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { InicialAuthentication } from "../../Redux/User/ThunkUser";
+import { setIsLoading } from "../../Redux/User/Userslice";
+import store from "../../Redux/Store";
 
 export const UserLogin = () => {
+	const rootReducer = store.getState();
+	const isLoading = rootReducer.userInformation.isLoading;
+
 	const navigate = useNavigate();
 	const [userName, setUserName] = useState("Antonette");
 	const [userEmail, setEmail] = useState("Shanna@melissa.tv");
@@ -25,9 +30,12 @@ export const UserLogin = () => {
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 		const datosUser = { userName, userEmail };
-
+		dispatch(setIsLoading(true));
 		dispatch(InicialAuthentication(datosUser));
-		navigate("/");
+
+		if (isLoading === false) {
+			navigate("/");
+		}
 	};
 
 	return (

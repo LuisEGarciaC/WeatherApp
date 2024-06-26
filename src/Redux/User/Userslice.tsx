@@ -6,8 +6,8 @@ const initialState: UserState = {
 	name: "",
 	username: "",
 	email: "",
-	isLoging: false,
-	usarStatus: "not_authenticated",
+	isLoading: false,
+	userStatus: "not_authenticated",
 	errorMessage: null,
 	units: "",
 	address: {
@@ -36,16 +36,28 @@ export const UserSlice = createSlice({
 		setUserLogin: (state, action: PayloadAction<UserState>) => {
 			state = action.payload;
 			state.units = "metric";
-			state.usarStatus = "authenticated";
-			state.isLoging = false;
+			state.userStatus = "authenticated";
+			state.isLoading = false;
 			state.errorMessage = null;
+			localStorage.setItem("dataUser", JSON.stringify(state)); // Guardar en localStorage
+			return state;
+		},
+		UserLougout: (state) => {
+			state = initialState;
+			console.log("click")
+			localStorage.removeItem("dataUser");
 			return state;
 		},
 		setErrorMessage: (state, action: PayloadAction<string>) => {
 			state.errorMessage = action.payload;
 		},
+		setIsLoading: (state, action: PayloadAction<boolean>) => {
+			state.isLoading = !action.payload;
+			
+		},
 	},
 });
 
-export const { setUserLogin, setErrorMessage } = UserSlice.actions;
+export const { setUserLogin, setErrorMessage, setIsLoading, UserLougout } =
+	UserSlice.actions;
 export default UserSlice.reducer;

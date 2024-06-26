@@ -7,8 +7,8 @@ export interface UserState {
 	phone: string;
 	website: string;
 	company: Company;
-	isLoging: boolean;
-	usarStatus: "authenticated" | "not_authenticated" | "checking";
+	isLoading: boolean;
+	userStatus: "authenticated" | "not_authenticated" | "checking";
 	errorMessage: string | null;
 	units: string;
 }
