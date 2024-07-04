@@ -22,11 +22,6 @@ const initialState: UserState = {
 	},
 	phone: "",
 	website: "",
-	company: {
-		name: "",
-		catchPhrase: "",
-		bs: "",
-	},
 };
 
 export const UserSlice = createSlice({
@@ -44,20 +39,56 @@ export const UserSlice = createSlice({
 		},
 		UserLougout: (state) => {
 			state = initialState;
-			console.log("click")
+			console.log("click");
 			localStorage.removeItem("dataUser");
 			return state;
+		},
+		userRegister: (state, action: PayloadAction<UserState>) => {
+			// state = action.payload;
+			state.id = action.payload.id;
+			state.name = action.payload.name;
+			state.username = action.payload.username;
+			state.email = action.payload.email;
+			state.units = "metric";
+			state.address.city = action.payload.address.city;
+			state.address.street = action.payload.address.street;
+			state.address.suite = action.payload.address.suite;
+			state.address.zipcode = action.payload.address.zipcode;
+			state.address.geo.lat = action.payload.address.geo.lat;
+			state.address.geo.lng = action.payload.address.geo.lng;
+			state.phone = action.payload.phone;
+			state.website = action.payload.website;
+			state.userStatus = "authenticated";
+			state.isLoading = false;
+			state.errorMessage = null;
+			localStorage.setItem("dataUser", JSON.stringify(state));
+			return state;
+		},
+		userUpdate: (state, action: PayloadAction<UserState>) => {
+			state = action.payload;
+			localStorage.setItem("dataUser", JSON.stringify(state));
+			return state;
+		},
+		userDelte: (state) => {
+			localStorage.removeItem("dataUser");
+			return (state = initialState);
 		},
 		setErrorMessage: (state, action: PayloadAction<string>) => {
 			state.errorMessage = action.payload;
 		},
 		setIsLoading: (state, action: PayloadAction<boolean>) => {
 			state.isLoading = !action.payload;
-			
 		},
 	},
 });
 
-export const { setUserLogin, setErrorMessage, setIsLoading, UserLougout } =
-	UserSlice.actions;
+export const {
+	setUserLogin,
+	setErrorMessage,
+	setIsLoading,
+	UserLougout,
+	userRegister,
+	userUpdate,
+	userDelte,
+} = UserSlice.actions;
 export default UserSlice.reducer;

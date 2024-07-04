@@ -1,3 +1,4 @@
+import { Grid } from "@mui/material";
 import "./App.css";
 import { WeatherRoutes } from "./Routes/WeatherRoutes";
 
@@ -5,10 +6,23 @@ import { NavBar } from "./WeatherApp/components/Layout/NavBar";
 
 function App() {
 	return (
-		<>
-			<NavBar />
-			<WeatherRoutes />
-		</>
+		<Grid
+			width={"100vw"}
+			sx={{ display: "flex", backgroundColor: "rgba(29, 158, 250,1)" }}
+		>
+			<Grid
+				container
+				spacing={0}
+				margin={5}
+				borderRadius={2}
+				sx={{ color: "black", backgroundColor: "white" }}
+				xs={12}
+				justifyContent={"space-between"}
+			>
+				<NavBar />
+				<WeatherRoutes />
+			</Grid>
+		</Grid>
 	);
 }
 

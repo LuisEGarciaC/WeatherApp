@@ -6,7 +6,7 @@ export interface UserState {
 	address: Address;
 	phone: string;
 	website: string;
-	company: Company;
+
 	isLoading: boolean;
 	userStatus: "authenticated" | "not_authenticated" | "checking";
 	errorMessage: string | null;
@@ -26,9 +26,4 @@ export interface Geo {
 	lng: string;
 }
 
-export interface Company {
-	name: string;
-	catchPhrase: string;
-	bs: string;
-}
 

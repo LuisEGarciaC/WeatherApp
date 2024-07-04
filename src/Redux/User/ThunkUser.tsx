@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { setErrorMessage, setUserLogin } from "./Userslice";
+import { setErrorMessage, setUserLogin, userRegister } from "./Userslice";
 import axios from "axios";
 
 export const InicialAuthentication: any = createAsyncThunk(
@@ -34,6 +34,44 @@ export const InicialAuthentication: any = createAsyncThunk(
 					// uso el dispatch para enviar errores de la API
 					dispatch(setErrorMessage("Problemas con la pagina de la API"));
 					// err
+				});
+		} catch (error) {
+			throw rejectWithValue("Error no se encuentra usuario");
+		}
+	}
+);
+
+export const ThunkUserRegister: any = createAsyncThunk(
+	"userAuth/register",
+	async (userData: any, { dispatch, rejectWithValue }) => {
+		try {
+			await axios
+				.post("http://localhost:3001/users", {
+					id: crypto.randomUUID(),
+					name: userData.name,
+					username: userData.username,
+					email: userData.email,
+					units: "",
+					address: {
+						street: userData.street,
+						suite: userData.suite,
+						city: userData.city,
+						zipcode: userData.zipcode,
+						geo: {
+							lat: userData.lat,
+							lng: userData.lng,
+						},
+					},
+					phone: userData.phone,
+					website: userData.website,
+				})
+				.then((res) => {
+					console.log("thunk");
+					dispatch(userRegister(res.data));
+				})
+				.catch((err) => {
+					console.log(err);
+					dispatch(setErrorMessage(err.response.data.message));
 				});
 		} catch (error) {
 			throw rejectWithValue("Error no se encuentra usuario");
