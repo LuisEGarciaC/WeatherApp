@@ -3,12 +3,23 @@ import { Grid, Typography } from "@mui/material";
 import React from "react";
 
 import LightModeIcon from "@mui/icons-material/LightMode";
+import { useDispatch } from "react-redux";
+import store from "../../../../../../Redux/Store";
+import { WeeklyWeather } from "../../../../../../Redux/Weather/ThunkWeather";
+import { obtenerDiaSemana } from "../../../../../../hooks/dataTodate";
 
 export type WeekWeatherProps = {
 	// types...
 };
 
 const WeekWeather: React.FC<WeekWeatherProps> = ({}) => {
+	const dispatch = useDispatch();
+	const rootReducer = store.getState();
+	const datawheather = rootReducer.weatherInformation.weeklyWeather;
+
+	dispatch(WeeklyWeather());
+
+
 	return (
 		<Grid
 			container
@@ -34,67 +45,76 @@ const WeekWeather: React.FC<WeekWeatherProps> = ({}) => {
 					7-DAY FORECAST
 				</Typography>
 			</Grid>
-			<Grid
-				item
-				sx={{
-					display: "flex",
-					flexDirection: "row",
-					justifyContent: "space-between",
-				}}
-			>
-				<Typography
-					variant="h3"
-					color="initial"
-					sx={{ fontSize: 15, color: "rgba(0, 0, 0, 0.3)", pt: 2, pl: 3 }}
-				>
-					Today
-				</Typography>
-				<Typography
-					variant="h3"
-					color="initial"
+
+			{datawheather.map((items) => (
+				<Grid
+					item
+					key={items.datetime}
 					sx={{
-						fontSize: 15,
-						pt: 2,
-						pl: 3,
-						fontWeight: "bold",
-						color: "black",
+						display: "flex",
+						flexDirection: "row",
+						justifyContent: "space-between",
 					}}
 				>
-					<LightModeIcon />
-					Sunnny
-				</Typography>
-
-				<Grid item sx={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
+					<Typography
+						variant="h3"
+						color="initial"
+						sx={{ fontSize: 15, color: "rgba(0, 0, 0, 0.3)", pt: 2, pl: 3 }}
+					>
+						{obtenerDiaSemana(items.datetime)}
+					</Typography>
 					<Typography
 						variant="h3"
 						color="initial"
 						sx={{
 							fontSize: 15,
 							pt: 2,
-							marginLeft: 1,
+							pl: 3,
 							fontWeight: "bold",
 							color: "black",
-							paddingRight: 1,
 						}}
 					>
-						30
+						{items.conditions}
 					</Typography>
-					<Typography
-						variant="h3"
-						color="initial"
+
+					<Grid
+						item
 						sx={{
-							fontSize: 15,
-							pt: 2,
-							paddingRight: 2,
-							
-							color: "black",
-							
+							display: "flex",
+							flexDirection: "row",
+							justifyContent: "center",
 						}}
 					>
-						/32
-					</Typography>
+						<Typography
+							variant="h3"
+							color="initial"
+							sx={{
+								fontSize: 15,
+								pt: 2,
+								marginLeft: 1,
+								fontWeight: "bold",
+								color: "black",
+								paddingRight: 1,
+							}}
+						>
+							{items.tempmax}
+						</Typography>
+						<Typography
+							variant="h3"
+							color="initial"
+							sx={{
+								fontSize: 15,
+								pt: 2,
+								paddingRight: 2,
+
+								color: "black",
+							}}
+						>
+							/{items.tempmin}
+						</Typography>
+					</Grid>
 				</Grid>
-			</Grid>
+			))}
 		</Grid>
 	);
 };

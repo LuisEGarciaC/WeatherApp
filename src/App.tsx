@@ -12,11 +12,11 @@ function App() {
 		>
 			<Grid
 				container
-				spacing={0}
+				
 				margin={5}
 				borderRadius={2}
 				sx={{ color: "black", backgroundColor: "white" }}
-				xs={12}
+				
 				justifyContent={"space-between"}
 			>
 				<NavBar />

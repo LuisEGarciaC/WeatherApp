@@ -19,7 +19,7 @@ function SearchHome() {
 	};
 
 	return (
-		<Grid sx={{ bgcolor: "rgba(0, 0, 0, 0.05)", borderRadius: 1 }}>
+		<Grid container sx={{ bgcolor: "rgba(0, 0, 0, 0.05)", borderRadius: 1 }}>
 			<FormControl
 				variant="standard"
 				sx={{

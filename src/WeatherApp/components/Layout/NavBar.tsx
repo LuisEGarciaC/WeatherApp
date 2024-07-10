@@ -14,12 +14,12 @@ import TuneIcon from "@mui/icons-material/Tune";
 import { Link } from "react-router-dom";
 
 const menuNav = [
-	{ to: "/", name: "Home", icon: "" },
-	{ to: "/login ", name: "Login", icon: "" },
-	{ to: "/register", name: "Register", icon: "" },
-	{ to: "/perfil", name: "Mi Perfil", icon: "" },
-	{ to: "/logout", name: "Salir", icon: "" },
-	{ to: "/error", name: "Error", icon: "" },
+	// { to: "/", name: "Home", icon: "" },
+	// { to: "/login ", name: "Login", icon: "" },
+	// { to: "/register", name: "Register", icon: "" },
+	// { to: "/perfil", name: "Mi Perfil", icon: "" },
+	// { to: "/logout", name: "Salir", icon: "" },
+	// { to: "/error", name: "Error", icon: "" },
 	{ to: "/Weather", name: "Weather", icon: <ThunderstormIcon /> },
 	{ to: "/Cities", name: "Cities", icon: <FormatListBulletedIcon /> },
 	{ to: "/Maps", name: "Maps", icon: <MapIcon /> },
